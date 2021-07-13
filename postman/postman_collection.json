@@ -1,0 +1,50 @@
+{
+	"info": {
+		"_postman_id": "743dbcd2-e2a1-46a0-81d9-c91b703b3c3a",
+		"name": "camunda-custom-rest-endpoint",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET on testprocess",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/engine-rest/testprocess",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"testprocess"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start testprocess",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/engine-rest/testprocess/start",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"testprocess",
+						"start"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

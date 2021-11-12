@@ -17,8 +17,9 @@
   <logger name="javax.activation" level="info"/>
   <logger name="org.springframework" level="info"/>
   <logger name="org.camunda.bpm.spring.boot.starter.rest" level="debug"/>
-  <logger name="org.glassfish.jersey.server" level="debug"/>
+  <logger name="org.glassfish.jersey.server" level="info"/>
   <logger name="com.zaxxer.hikari.pool" level="info"/>
+  <logger name="org.camunda.example" level="debug"/>
 
   <root level="debug">
     <appender-ref ref="STDOUT"/>

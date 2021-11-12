@@ -29,15 +29,22 @@ public class Application {
   @EventListener
   public void processPostDeploy(PostDeployEvent event) {
 
-    String BK = "BK"+ System.currentTimeMillis();
-    runtimeService.startProcessInstanceByKey("TestAProcess",BK);
-    runtimeService.startProcessInstanceByKey("TestBProcess",BK);
-    log.info("Started TestAProcess and TestBProcess with business key:" + BK);
+    try {
 
-    String BK2 = "BK"+ System.currentTimeMillis();
-    runtimeService.startProcessInstanceByKey("TestAProcess",BK2);
-    runtimeService.startProcessInstanceByKey("TestBProcess",BK2);
-    log.info("Started TestAProcess and TestBProcess with business key:" + BK2);
+      String BK = "BK" + System.currentTimeMillis();
+      runtimeService.startProcessInstanceByKey("TestAProcess", BK);
+      runtimeService.startProcessInstanceByKey("TestBProcess", BK);
+      log.info("Started TestAProcess and TestBProcess with business key:" + BK);
+
+      String BK2 = "BK" + System.currentTimeMillis();
+      runtimeService.startProcessInstanceByKey("TestAProcess", BK2);
+      runtimeService.startProcessInstanceByKey("TestBProcess", BK2);
+      log.info("Started TestAProcess and TestBProcess with business key:" + BK2);
+    }
+    catch (Exception e)
+    {
+      log.info(e.getMessage());
+    }
 
   }
 

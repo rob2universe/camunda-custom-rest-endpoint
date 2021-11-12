@@ -2,8 +2,9 @@ package org.camunda.example.api;
 
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.HistoryService;
-import org.camunda.bpm.engine.ProcessEngine;
+import org.camunda.bpm.engine.ManagementService;
 import org.camunda.bpm.engine.history.HistoricActivityInstance;
+import org.camunda.bpm.engine.history.HistoricProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,30 +23,27 @@ import java.util.List;
 public class CustomActivityHistoryRestService {
 
   @Autowired
-  ProcessEngine engine;
+  HistoryService historyService;
+
+  @Autowired
+  ManagementService mgmtService;
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public Response getHistoryByBusinessKey(@QueryParam("businessKey") String businessKey) {
+  public Response getActivityInstanceHistoryByBusinessKey(@QueryParam("businessKey") String businessKey) {
 
-    log.info("Getting instances for businessKey: {}", businessKey);
-    HistoryService historyService = engine.getHistoryService();
-    var piList = historyService.createHistoricProcessInstanceQuery()
-        .processInstanceBusinessKey(businessKey)
-        .orderByProcessInstanceEndTime().asc()
+    List<HistoricActivityInstance> aiList;
+    aiList = historyService.createNativeHistoricActivityInstanceQuery()
+        .sql("SELECT AI.* FROM "
+            + mgmtService.getTableName(HistoricProcessInstance.class) + " PI,"
+            + mgmtService.getTableName(HistoricActivityInstance.class) + " AI"
+            + " WHERE AI.PROC_INST_ID_ = PI.ID_ AND PI.BUSINESS_KEY_ = #{businessKey} ORDER BY AI.END_TIME_ ")
+        .parameter("businessKey", businessKey)
         .list();
-    log.info("Found {} process instances.", piList.size());
-    List<HistoricActivityInstance> aiList = new ArrayList<>();
-    piList.forEach(e -> {
-      log.debug("Process instance {} of definition id {}", e.getId(), e.getProcessDefinitionId());
-          aiList.addAll(
-              historyService.createHistoricActivityInstanceQuery()
-              .processInstanceId(e.getId())
-              .list()
-          );
-        }
-    );
 
+    log.debug("\nGetting instances for businessKey {} returned {} historic activity instances:", businessKey, aiList.size());
+    aiList.forEach(ai -> log.debug("ActvityId: {} PI: {}, AI: {}",
+        ai.getActivityId(), ai.getProcessInstanceId(), ai.getParentActivityInstanceId()));
     return Response.ok().entity(aiList).build();
   }
 }

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0fr9mxs" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1">
   <bpmn:process id="TestAProcess" name="Test A" isExecutable="true">
-    <bpmn:startEvent id="StartEvent_1">
+    <bpmn:startEvent id="StartAStartEvent" name="Start A">
       <bpmn:outgoing>SequenceFlow_1fp17al</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_1fp17al" sourceRef="StartEvent_1" targetRef="TaskInATask" />
-    <bpmn:endEvent id="EndEvent_0x6ir2l">
+    <bpmn:sequenceFlow id="SequenceFlow_1fp17al" sourceRef="StartAStartEvent" targetRef="TaskInATask" />
+    <bpmn:endEvent id="EndAEndEvent" name="End A">
       <bpmn:incoming>SequenceFlow_16gzt2m</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_16gzt2m" sourceRef="TaskInATask" targetRef="EndEvent_0x6ir2l" />
+    <bpmn:sequenceFlow id="SequenceFlow_16gzt2m" sourceRef="TaskInATask" targetRef="EndAEndEvent" />
     <bpmn:serviceTask id="TaskInATask" name="Task in A" camunda:delegateExpression="${logger}">
       <bpmn:incoming>SequenceFlow_1fp17al</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_16gzt2m</bpmn:outgoing>
@@ -24,11 +24,17 @@
         <di:waypoint x="215" y="117" />
         <di:waypoint x="270" y="117" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartAStartEvent">
         <dc:Bounds x="179" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="180" y="142" width="34" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="EndEvent_0x6ir2l_di" bpmnElement="EndEvent_0x6ir2l">
+      <bpmndi:BPMNShape id="EndEvent_0x6ir2l_di" bpmnElement="EndAEndEvent">
         <dc:Bounds x="432" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="435" y="142" width="31" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_19reg6c_di" bpmnElement="TaskInATask">
         <dc:Bounds x="270" y="77" width="100" height="80" />

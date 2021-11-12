@@ -45,6 +45,32 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "activity-history by businessKey",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/engine-rest/custom-activity-history?businessKey=BK1636706884434",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"engine-rest",
+						"custom-activity-history"
+					],
+					"query": [
+						{
+							"key": "businessKey",
+							"value": "BK1636706884434"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
